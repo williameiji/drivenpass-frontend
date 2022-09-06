@@ -86,6 +86,7 @@ const Box = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 40px 20px;
+	margin-bottom: 80px;
 `;
 
 const Input = styled.input`
@@ -123,14 +124,15 @@ const BigInput = styled.textarea`
 `;
 
 const Bottom = styled.div`
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	left: 0;
+	background-color: white;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	padding: 20px 15px;
+	padding: 10px 15px;
 `;
 
 const AddButton = styled(IoCheckmarkCircle)`

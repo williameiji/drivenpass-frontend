@@ -18,6 +18,7 @@ export default function NewCard() {
 		cvc: "",
 		date: "",
 		password: "",
+		type: "",
 	});
 
 	function handleFormChange(e) {
@@ -91,6 +92,38 @@ export default function NewCard() {
 					value={cardDataInput.password}
 					required
 				/>
+
+				<LabelInput>Tipo de cartão</LabelInput>
+				<div>
+					<input
+						type="radio"
+						id="crédito"
+						name="type"
+						value={"crédito"}
+						onChange={(e) => handleFormChange(e)}
+					/>
+					<LabelInput for="crédito">Crédito</LabelInput>
+				</div>
+				<div>
+					<input
+						type="radio"
+						id="débito"
+						name="type"
+						value={"débito"}
+						onChange={(e) => handleFormChange(e)}
+					/>
+					<LabelInput for="débito">Débito</LabelInput>
+				</div>
+				<div>
+					<input
+						type="radio"
+						id="ambos"
+						name="type"
+						value={"ambos"}
+						onChange={(e) => handleFormChange(e)}
+					/>
+					<LabelInput for="ambos">Ambos</LabelInput>
+				</div>
 			</Box>
 			<Bottom>
 				<BackButton onClick={backToNewRecords}>{"< Voltar"}</BackButton>
@@ -121,6 +154,10 @@ const Box = styled.div`
 	flex-direction: column;
 	padding: 40px 20px;
 	margin-bottom: 80px;
+
+	div {
+		margin-top: 12px;
+	}
 
 	input[type="text"],
 	input[type="password"] {

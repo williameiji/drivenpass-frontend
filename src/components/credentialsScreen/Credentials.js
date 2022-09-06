@@ -2,14 +2,18 @@ import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { IoLogIn } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import InformationsContext from "../context/InformationsContext";
 
 export default function Credentials() {
 	const [credentials, setCredentials] = useState(true);
 	const { userInformation } = useContext(UserContext);
+	const { setInformations } = useContext(InformationsContext);
+	const navigate = useNavigate();
 
 	// const config = {
 	// 	headers: {
@@ -19,12 +23,17 @@ export default function Credentials() {
 
 	// useEffect(() => {
 	// 	axios
-	// 		.get("counterRoute", config)
+	// 		.get("allSites", config)
 	// 		.then((response) => {
-	// 			setCounterTypes(response.data);
+	// 			setCredentials(response.data);
 	// 		})
 	// 		.catch((err) => {});
 	// }, []);
+
+	function goToCredential(data, index) {
+		setInformations({ ...data, index });
+		navigate(`/credential`);
+	}
 
 	return (
 		<MainScreen>
@@ -35,12 +44,13 @@ export default function Credentials() {
 				</BoxLoading>
 			) : (
 				credentials.map((elem, index) => (
-					<Box>
+					<Box onClick={() => goToCredential(elem)}>
 						<CredentialsLogo />
 						<Text>{`Site ${index + 1}`}</Text>
 					</Box>
 				))
 			)}
+			<AddButton>+</AddButton>
 		</MainScreen>
 	);
 }
@@ -77,4 +87,19 @@ const BoxLoading = styled.div`
 	align-items: center;
 	justify-content: center;
 	padding: 0 40px 0 0;
+`;
+
+const AddButton = styled.div`
+	width: 61px;
+	height: 61px;
+	border-radius: 50px;
+	background: #005985;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 40px;
+	position: absolute;
+	bottom: 15px;
+	right: 10px;
 `;

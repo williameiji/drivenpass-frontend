@@ -47,6 +47,10 @@ export default function PasswordsScreen() {
 		navigate("/wifis");
 	}
 
+	function goToNewRecord() {
+		navigate("/newrecord");
+	}
+
 	return (
 		<>
 			<MainScreen>
@@ -85,7 +89,7 @@ export default function PasswordsScreen() {
 							</div>
 							{/* <Counter>{counterTypes.wifi}</Counter> */}
 						</BoxTypes>
-						<AddButton>+</AddButton>
+						<AddButton onClick={goToNewRecord}>+</AddButton>
 					</Box>
 				)}
 			</MainScreen>

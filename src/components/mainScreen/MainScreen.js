@@ -13,5 +13,5 @@ export default function MainScreen(props) {
 
 const Box = styled.div`
 	width: 100vw;
-	height: 100vh;
+	height: 100%;
 `;

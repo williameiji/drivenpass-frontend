@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { IoPencil } from "react-icons/io5";
+import { IoWallet } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import MainScreen from "../mainScreen/MainScreen";
@@ -9,8 +9,8 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import InformationsContext from "../context/InformationsContext";
 
-export default function Notes() {
-	const [notes, setNotes] = useState(true);
+export default function Cards() {
+	const [cards, setCards] = useState(true);
 	const { userInformation } = useContext(UserContext);
 	const { setInformations } = useContext(InformationsContext);
 	const navigate = useNavigate();
@@ -25,28 +25,28 @@ export default function Notes() {
 	// 	axios
 	// 		.get("allNotes", config)
 	// 		.then((response) => {
-	// 			setNotes(response.data);
+	// 			setCards(response.data);
 	// 		})
 	// 		.catch((err) => {});
 	// }, []);
 
-	function goToNote(data, index) {
+	function goToCard(data, index) {
 		setInformations({ ...data, index });
 		navigate(`/note`);
 	}
 
 	return (
 		<MainScreen>
-			<Title>Notas seguras</Title>
-			{notes ? (
+			<Title>Cartões</Title>
+			{cards ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
 			) : (
-				notes.map((elem, index) => (
-					<Box onClick={() => goToNote(elem, index)}>
-						<NotesLogo />
-						<Text>{`Nota ${index + 1}`}</Text>
+				cards.map((elem, index) => (
+					<Box onClick={() => goToCard(elem, index)}>
+						<CardsLogo />
+						<Text>{`Cartão ${index + 1}`}</Text>
 					</Box>
 				))
 			)}
@@ -64,7 +64,7 @@ const Title = styled.div`
 	padding: 8px 12px;
 `;
 
-const NotesLogo = styled(IoPencil)`
+const CardsLogo = styled(IoWallet)`
 	font-size: 55px;
 	color: #005985;
 `;

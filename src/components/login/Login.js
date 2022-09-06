@@ -33,7 +33,7 @@ export default function Login() {
 			.post(urls.login, loginDataInput)
 			.then((response) => {
 				setUserInformation(response.data);
-				navigate("");
+				navigate("/main");
 			})
 			.catch((err) => {
 				setBlockButtom(false);

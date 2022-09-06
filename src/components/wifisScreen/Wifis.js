@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { IoPencil } from "react-icons/io5";
+import { IoWifi } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import MainScreen from "../mainScreen/MainScreen";
@@ -9,8 +9,8 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import InformationsContext from "../context/InformationsContext";
 
-export default function Notes() {
-	const [notes, setNotes] = useState(true);
+export default function Wifis() {
+	const [wifis, setWifis] = useState(true);
 	const { userInformation } = useContext(UserContext);
 	const { setInformations } = useContext(InformationsContext);
 	const navigate = useNavigate();
@@ -23,30 +23,30 @@ export default function Notes() {
 
 	// useEffect(() => {
 	// 	axios
-	// 		.get("allNotes", config)
+	// 		.get("allSites", config)
 	// 		.then((response) => {
-	// 			setNotes(response.data);
+	// 			setWifis(response.data);
 	// 		})
 	// 		.catch((err) => {});
 	// }, []);
 
-	function goToNote(data, index) {
+	function goToWifi(data, index) {
 		setInformations({ ...data, index });
-		navigate(`/note`);
+		navigate(`/wifi`);
 	}
 
 	return (
 		<MainScreen>
-			<Title>Notas seguras</Title>
-			{notes ? (
+			<Title>Senhas de Wi-fi</Title>
+			{wifis ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
 			) : (
-				notes.map((elem, index) => (
-					<Box onClick={() => goToNote(elem, index)}>
-						<NotesLogo />
-						<Text>{`Nota ${index + 1}`}</Text>
+				wifis.map((elem, index) => (
+					<Box onClick={() => goToWifi(elem, index)}>
+						<WifiLogo />
+						<Text>{`Wi-fi ${index + 1}`}</Text>
 					</Box>
 				))
 			)}
@@ -64,7 +64,7 @@ const Title = styled.div`
 	padding: 8px 12px;
 `;
 
-const NotesLogo = styled(IoPencil)`
+const WifiLogo = styled(IoWifi)`
 	font-size: 55px;
 	color: #005985;
 `;

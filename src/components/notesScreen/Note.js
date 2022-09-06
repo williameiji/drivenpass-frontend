@@ -7,13 +7,13 @@ import MainScreen from "../mainScreen/MainScreen";
 import InformationsContext from "../context/InformationsContext";
 import UserContext from "../context/UserContext";
 
-export default function Credential() {
+export default function Note() {
 	const { informations, setInformations } = useContext(InformationsContext);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 
-	function backToCredentials() {
-		navigate("/credentials");
+	function backToNotes() {
+		navigate("/notes");
 		setInformations(null);
 	}
 
@@ -23,13 +23,13 @@ export default function Credential() {
 	// 	},
 	// };
 
-	function deleteCredential(id) {
+	function deleteNote(id) {
 		axios.delete(`delete/${id}`);
 	}
 
 	return (
 		<MainScreen>
-			<TitleCredentials>Credenciais</TitleCredentials>
+			<TitleNotes>Notas seguras</TitleNotes>
 			<Box>
 				<Text>{`Site 1`}</Text>
 				<Title>URL</Title>
@@ -40,8 +40,8 @@ export default function Credential() {
 				<Text>XXAS@123i_ll</Text>
 			</Box>
 			<Bottom>
-				<BackButton onClick={backToCredentials}>{"< Voltar"}</BackButton>
-				<DeleteButton onClick={() => deleteCredential()}>X</DeleteButton>
+				<BackButton onClick={backToNotes}>{"< Voltar"}</BackButton>
+				<DeleteButton onClick={() => deleteNote()}>X</DeleteButton>
 			</Bottom>
 		</MainScreen>
 	);
@@ -67,7 +67,7 @@ const Text = styled.p`
 	margin-top: 8px;
 `;
 
-const TitleCredentials = styled.div`
+const TitleNotes = styled.div`
 	font-family: "Recursive";
 	font-size: 18px;
 	color: white;

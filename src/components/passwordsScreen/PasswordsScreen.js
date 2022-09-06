@@ -35,6 +35,18 @@ export default function PasswordsScreen() {
 		navigate("/credentials");
 	}
 
+	function goToNotes() {
+		navigate("/notes");
+	}
+
+	function goToCards() {
+		navigate("/cards");
+	}
+
+	function goToWifis() {
+		navigate("/wifis");
+	}
+
 	return (
 		<>
 			<MainScreen>
@@ -52,21 +64,21 @@ export default function PasswordsScreen() {
 							</div>
 							{/* <Counter>{counterTypes.credentials}</Counter> */}
 						</BoxTypes>
-						<BoxTypes>
+						<BoxTypes onClick={goToNotes}>
 							<div>
 								<NotesLogo />
 								<Text>Notas seguras</Text>
 							</div>
 							{/* <Counter>{counterTypes.notes}</Counter> */}
 						</BoxTypes>
-						<BoxTypes>
+						<BoxTypes onClick={goToCards}>
 							<div>
 								<CardsLogo />
 								<Text>Cartões</Text>
 							</div>
 							{/* <Counter>{counterTypes.cards}</Counter> */}
 						</BoxTypes>
-						<BoxTypes>
+						<BoxTypes onClick={goToWifis}>
 							<div>
 								<WifiLogo />
 								<Text>Senhas de Wi-fi</Text>

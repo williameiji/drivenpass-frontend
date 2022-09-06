@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { IoLogIn } from "react-icons/io5";
+import { IoPencil } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import MainScreen from "../mainScreen/MainScreen";
@@ -9,8 +9,8 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import InformationsContext from "../context/InformationsContext";
 
-export default function Credentials() {
-	const [credentials, setCredentials] = useState(true);
+export default function Notes() {
+	const [notes, setNotes] = useState(true);
 	const { userInformation } = useContext(UserContext);
 	const { setInformations } = useContext(InformationsContext);
 	const navigate = useNavigate();
@@ -23,30 +23,30 @@ export default function Credentials() {
 
 	// useEffect(() => {
 	// 	axios
-	// 		.get("allSites", config)
+	// 		.get("allNotes", config)
 	// 		.then((response) => {
-	// 			setCredentials(response.data);
+	// 			setNotes(response.data);
 	// 		})
 	// 		.catch((err) => {});
 	// }, []);
 
-	function goToCredential(data, index) {
+	function goToNote(data, index) {
 		setInformations({ ...data, index });
-		navigate(`/credential`);
+		navigate(`/note`);
 	}
 
 	return (
 		<MainScreen>
-			<Title>Credenciais</Title>
-			{credentials ? (
+			<Title>Notas seguras</Title>
+			{notes ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
 			) : (
-				credentials.map((elem, index) => (
-					<Box onClick={() => goToCredential(elem)}>
-						<CredentialsLogo />
-						<Text>{`Site ${index + 1}`}</Text>
+				notes.map((elem, index) => (
+					<Box onClick={() => goToNote(elem)}>
+						<NotesLogo />
+						<Text>{`Nota ${index + 1}`}</Text>
 					</Box>
 				))
 			)}
@@ -64,7 +64,7 @@ const Title = styled.div`
 	padding: 8px 12px;
 `;
 
-const CredentialsLogo = styled(IoLogIn)`
+const NotesLogo = styled(IoPencil)`
 	font-size: 55px;
 	color: #005985;
 `;

@@ -6,6 +6,8 @@ import axios from "axios";
 import AuthScreen from "../authScreen/AuthScreen";
 import AuthLoading from "../shared/AuthLoading";
 import urls from "../shared/urls";
+import SuccessModal from "./SuccessModal";
+import ErrorModal from "./ErrorModal";
 
 export default function Signup() {
 	const [signupDataInput, setSignupDataInput] = useState({
@@ -14,6 +16,8 @@ export default function Signup() {
 	});
 	const navigate = useNavigate();
 	const [blockButtom, setBlockButtom] = useState(false);
+	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
 	function handleFormChange(e) {
 		let data = { ...signupDataInput };
@@ -28,18 +32,11 @@ export default function Signup() {
 		await axios
 			.post(urls.signup, signupDataInput)
 			.then((response) => {
-				alert("Cadastro efetuado!");
-				navigate("/");
+				setIsSuccessModalOpen(true);
 			})
 			.catch((err) => {
 				setBlockButtom(false);
-				if (err.response.status === 422) {
-					alert(
-						"Deve ser um e-mail válido e a senha deve conter no mínimo 10 caracteres."
-					);
-				} else {
-					alert(err.response.data);
-				}
+				setIsErrorModalOpen(true);
 			});
 	}
 
@@ -49,6 +46,14 @@ export default function Signup() {
 
 	return (
 		<AuthScreen>
+			<SuccessModal
+				isSuccessModalOpen={isSuccessModalOpen}
+				setIsSuccessModalOpen={setIsSuccessModalOpen}
+			/>
+			<ErrorModal
+				isErrorModalOpen={isErrorModalOpen}
+				setIsErrorModalOpen={setIsErrorModalOpen}
+			/>
 			<Forms onSubmit={submitSignup}>
 				<LabelInput>Usuário (e-mail)</LabelInput>
 				<input

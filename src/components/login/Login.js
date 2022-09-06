@@ -7,6 +7,7 @@ import AuthScreen from "../authScreen/AuthScreen";
 import AuthLoading from "../shared/AuthLoading";
 import UserContext from "../context/UserContext";
 import urls from "../shared/urls";
+import LoginModal from "./LoginModal";
 
 export default function Login() {
 	const [loginDataInput, setLoginDataInput] = useState({
@@ -16,6 +17,7 @@ export default function Login() {
 	const navigate = useNavigate();
 	const [blockButtom, setBlockButtom] = useState(false);
 	const { setUserInformation } = useContext(UserContext);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	function handleFormChange(e) {
 		let data = { ...loginDataInput };
@@ -35,11 +37,7 @@ export default function Login() {
 			})
 			.catch((err) => {
 				setBlockButtom(false);
-				if (err.response.status === 401) {
-					alert("Usuário/senha inválidos!");
-				} else {
-					alert(err.response.data);
-				}
+				setIsModalOpen(true);
 			});
 	}
 
@@ -49,6 +47,7 @@ export default function Login() {
 
 	return (
 		<AuthScreen>
+			<LoginModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 			<Forms onSubmit={submitLogin}>
 				<LabelInput>Usuário (e-mail)</LabelInput>
 				<input

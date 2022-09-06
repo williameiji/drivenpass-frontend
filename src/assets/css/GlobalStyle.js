@@ -11,6 +11,28 @@ const GlobalStyle = createGlobalStyle`
         background: white;
         margin: 0;
     }
+
+    .Modal {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 90%;
+        background: white;
+    }
+
+    .Overlay {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
     
 `;
 

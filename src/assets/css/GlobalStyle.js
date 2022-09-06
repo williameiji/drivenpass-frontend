@@ -12,6 +12,12 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
     }
 
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
     .Modal {
         position: absolute;
         display: flex;

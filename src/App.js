@@ -7,6 +7,8 @@ import UserContext from "../src/components/context/UserContext";
 
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
+import PasswordsScreen from "./components/passwordsScreen/PasswordsScreen";
+import Credentials from "./components/credentialsScreen/Credentials";
 
 export default function App() {
 	const [userInformation, setUserInformation] = useState(null);
@@ -17,8 +19,10 @@ export default function App() {
 			<UserContext.Provider value={{ setUserInformation, userInformation }}>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/" element={<Login />} />
+						<Route path="/" element={<PasswordsScreen />} />
 						<Route path="/signup" element={<Signup />} />
+						<Route path="/main" element={<PasswordsScreen />} />
+						<Route path="/credentials" element={<Credentials />} />
 					</Routes>
 				</BrowserRouter>
 			</UserContext.Provider>

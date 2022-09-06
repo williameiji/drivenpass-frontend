@@ -34,7 +34,7 @@ export default function App() {
 				<InformationsContext.Provider value={{ informations, setInformations }}>
 					<BrowserRouter>
 						<Routes>
-							<Route path="/" element={<PasswordsScreen />} />
+							<Route path="/" element={<Login />} />
 							<Route path="/signup" element={<Signup />} />
 							<Route path="/main" element={<PasswordsScreen />} />
 							<Route path="/credentials" element={<Credentials />} />

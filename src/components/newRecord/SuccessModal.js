@@ -10,7 +10,7 @@ export default function SuccessModal({
 
 	function closeModal() {
 		setIsSuccessModalOpen(false);
-		navigate("/");
+		navigate("/main");
 	}
 
 	return (

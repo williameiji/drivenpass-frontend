@@ -35,6 +35,10 @@ export default function Wifis() {
 		navigate(`/wifi`);
 	}
 
+	function goToNewPasswords() {
+		navigate("/newrecord");
+	}
+
 	return (
 		<MainScreen>
 			<Title>Senhas de Wi-fi</Title>
@@ -46,13 +50,13 @@ export default function Wifis() {
 				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
 				wifis.map((elem, index) => (
-					<Box key={index} onClick={goToWifi}>
+					<Box key={index} onClick={() => goToWifi(elem.id)}>
 						<WifiLogo />
 						<Text>{elem.title}</Text>
 					</Box>
 				))
 			)}
-			<AddButton>+</AddButton>
+			<AddButton onClick={goToNewPasswords}>+</AddButton>
 		</MainScreen>
 	);
 }

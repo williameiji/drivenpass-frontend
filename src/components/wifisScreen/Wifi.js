@@ -6,10 +6,14 @@ import axios from "axios";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import DeleteModal from "../shared/DeleteModal";
+import ErrorModal from "../shared/ErrorModal";
 import urls from "../shared/urls";
 
 export default function Wifi() {
-	const [wifi, setWifi] = useState(true);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [wifi, setWifi] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -36,13 +40,28 @@ export default function Wifi() {
 	}, []);
 
 	function deleteWifi(id) {
-		axios.delete(`delete/${id}`);
+		axios
+			.delete(`${urls.wifis}/${id}`, config)
+			.then(() => {
+				setIsDeleteModalOpen(true);
+			})
+			.catch(() => {
+				setIsErrorModalOpen(true);
+			});
 	}
 
 	return (
 		<MainScreen>
+			<DeleteModal
+				isDeleteModalOpen={isDeleteModalOpen}
+				setIsDeleteModalOpen={setIsDeleteModalOpen}
+			/>
+			<ErrorModal
+				isErrorModalOpen={isErrorModalOpen}
+				setIsErrorModalOpen={setIsErrorModalOpen}
+			/>
 			<TitleWifis>Senhas de Wi-fi</TitleWifis>
-			{wifi ? (
+			{!wifi ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
@@ -59,7 +78,7 @@ export default function Wifi() {
 					</Box>
 					<Bottom>
 						<BackButton onClick={backToWifis}>{"< Voltar"}</BackButton>
-						<DeleteButton onClick={() => deleteWifi()}>X</DeleteButton>
+						<DeleteButton onClick={() => deleteWifi(wifi.id)}>X</DeleteButton>
 					</Bottom>
 				</>
 			)}

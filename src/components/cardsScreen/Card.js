@@ -6,10 +6,14 @@ import axios from "axios";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import DeleteModal from "../shared/DeleteModal";
+import ErrorModal from "../shared/ErrorModal";
 import urls from "../shared/urls";
 
 export default function Card() {
-	const [card, setCard] = useState(true);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [card, setCard] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -35,31 +39,54 @@ export default function Card() {
 			});
 	}, []);
 
-	function deleteCard(id) {
-		axios.delete(`delete/${id}`);
+	function deleteCards(id) {
+		axios
+			.delete(`${urls.cards}/${id}`, config)
+			.then(() => {
+				setIsDeleteModalOpen(true);
+			})
+			.catch(() => {
+				setIsErrorModalOpen(true);
+			});
 	}
 
 	return (
 		<MainScreen>
+			<DeleteModal
+				isDeleteModalOpen={isDeleteModalOpen}
+				setIsDeleteModalOpen={setIsDeleteModalOpen}
+			/>
+			<ErrorModal
+				isErrorModalOpen={isErrorModalOpen}
+				setIsErrorModalOpen={setIsErrorModalOpen}
+			/>
 			<TitleCards>Cartões</TitleCards>
-			{card ? (
+			{!card ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
 			) : (
 				<>
 					<Box>
-						<Text>{`Cartão 1`}</Text>
-						<Title>URL</Title>
-						<Text>https://linux.com.br</Text>
-						<Title>Usuário</Title>
-						<Text>PinguimMaluco</Text>
+						<Text>{card.title}</Text>
+						<Title>Número</Title>
+						<Text>{card.number}</Text>
+						<Title>Nome impresso</Title>
+						<Text>{card.name}</Text>
+						<Title>CVC</Title>
+						<Text>{card.cvc}</Text>
+						<Title>Data de expiração</Title>
+						<Text>{card.date}</Text>
 						<Title>Senha</Title>
-						<Text>XXAS@123i_ll</Text>
+						<Text>{card.password}</Text>
+						<Title>Virtual</Title>
+						<Text>{card.isVirtual ? "Sim" : "Não"}</Text>
+						<Title>Tipo</Title>
+						<Text>{card.type}</Text>
 					</Box>
 					<Bottom>
-						<BackButton onClick={deleteCard}>{"< Voltar"}</BackButton>
-						<DeleteButton onClick={() => backToCards()}>X</DeleteButton>
+						<BackButton onClick={backToCards}>{"< Voltar"}</BackButton>
+						<DeleteButton onClick={() => deleteCards(card.id)}>X</DeleteButton>
 					</Bottom>
 				</>
 			)}

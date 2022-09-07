@@ -10,7 +10,7 @@ import LoadingData from "../shared/LoadingData";
 import urls from "../shared/urls";
 
 export default function Cards() {
-	const [cards, setCards] = useState(true);
+	const [cards, setCards] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 
@@ -31,8 +31,12 @@ export default function Cards() {
 			});
 	}, []);
 
-	function goToCard() {
-		navigate(`/note`);
+	function goToCard(id) {
+		navigate(`/note/${id}`);
+	}
+
+	function goToNewPasswords() {
+		navigate("/newrecord");
 	}
 
 	return (
@@ -45,14 +49,14 @@ export default function Cards() {
 			) : !cards.length ? (
 				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
-				cards.map((elem) => (
-					<Box onClick={goToCard}>
+				cards.map((elem, index) => (
+					<Box key={index} onClick={() => goToCard(elem.id)}>
 						<CardsLogo />
 						<Text>{elem.title}</Text>
 					</Box>
 				))
 			)}
-			<AddButton>+</AddButton>
+			<AddButton onClick={goToNewPasswords}>+</AddButton>
 		</MainScreen>
 	);
 }

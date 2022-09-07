@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
+import UserContext from "../context/UserContext";
+import urls from "../shared/urls";
 
 export default function NewCard() {
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -21,13 +24,29 @@ export default function NewCard() {
 		isVirtual: false,
 		type: "",
 	});
-
-	console.log(cardDataInput);
+	const { userInformation } = useContext(UserContext);
 
 	function handleFormChange(e) {
 		let data = { ...cardDataInput };
 		data[e.target.name] = e.target.value;
 		setCardDataInput(data);
+	}
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userInformation}`,
+		},
+	};
+
+	async function sendInformation() {
+		axios
+			.post(urls.cards, cardDataInput, config)
+			.then((response) => {
+				setIsSuccessModalOpen(true);
+			})
+			.catch((err) => {
+				setIsErrorModalOpen(true);
+			});
 	}
 
 	function backToNewRecords() {
@@ -140,7 +159,7 @@ export default function NewCard() {
 			</Box>
 			<Bottom>
 				<BackButton onClick={backToNewRecords}>{"< Voltar"}</BackButton>
-				<AddButton onClick={""}>+</AddButton>
+				<AddButton onClick={sendInformation}>+</AddButton>
 			</Bottom>
 		</MainScreen>
 	);

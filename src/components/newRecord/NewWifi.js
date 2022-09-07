@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
-import ErrorModal from "./ErrorModal";
+import ErrorModal from "../shared/ErrorModal";
 
 export default function NewWifi() {
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);

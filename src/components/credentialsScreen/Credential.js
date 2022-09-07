@@ -6,10 +6,14 @@ import axios from "axios";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import DeleteModal from "../shared/DeleteModal";
+import ErrorModal from "../shared/ErrorModal";
 import urls from "../shared/urls";
 
 export default function Credential() {
-	const [credential, setCredential] = useState(true);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [credential, setCredential] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -36,30 +40,47 @@ export default function Credential() {
 	}, []);
 
 	function deleteCredential(id) {
-		axios.delete(`delete/${id}`);
+		axios
+			.delete(`${urls.credentials}/${id}`, config)
+			.then(() => {
+				setIsDeleteModalOpen(true);
+			})
+			.catch(() => {
+				setIsErrorModalOpen(true);
+			});
 	}
 
 	return (
 		<MainScreen>
+			<DeleteModal
+				isDeleteModalOpen={isDeleteModalOpen}
+				setIsDeleteModalOpen={setIsDeleteModalOpen}
+			/>
+			<ErrorModal
+				isErrorModalOpen={isErrorModalOpen}
+				setIsErrorModalOpen={setIsErrorModalOpen}
+			/>
 			<TitleCredentials>Credenciais</TitleCredentials>
-			{credential ? (
+			{!credential ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
 			) : (
 				<>
 					<Box>
-						<Text>{`Site 1`}</Text>
+						<Text>{credential.title}</Text>
 						<Title>URL</Title>
-						<Text>https://linux.com.br</Text>
+						<Text>{credential.url}</Text>
 						<Title>Usuário</Title>
-						<Text>PinguimMaluco</Text>
+						<Text>{credential.name}</Text>
 						<Title>Senha</Title>
-						<Text>XXAS@123i_ll</Text>
+						<Text>{credential.password}</Text>
 					</Box>
 					<Bottom>
 						<BackButton onClick={backToCredentials}>{"< Voltar"}</BackButton>
-						<DeleteButton onClick={() => deleteCredential()}>X</DeleteButton>
+						<DeleteButton onClick={() => deleteCredential(credential.id)}>
+							X
+						</DeleteButton>
 					</Bottom>
 				</>
 			)}

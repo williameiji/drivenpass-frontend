@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
+import UserContext from "../context/UserContext";
+import urls from "../shared/urls";
 
 export default function NewCredential() {
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -14,14 +17,32 @@ export default function NewCredential() {
 	const [credentialDataInput, setCredentialDataInput] = useState({
 		title: "",
 		url: "",
-		user: "",
+		name: "",
 		password: "",
 	});
+	const { userInformation } = useContext(UserContext);
 
 	function handleFormChange(e) {
 		let data = { ...credentialDataInput };
 		data[e.target.name] = e.target.value;
 		setCredentialDataInput(data);
+	}
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userInformation}`,
+		},
+	};
+
+	async function sendInformation() {
+		axios
+			.post(urls.credentials, credentialDataInput, config)
+			.then((response) => {
+				setIsSuccessModalOpen(true);
+			})
+			.catch((err) => {
+				setIsErrorModalOpen(true);
+			});
 	}
 
 	function backToNewRecords() {
@@ -60,9 +81,9 @@ export default function NewCredential() {
 				<LabelInput>Usuário</LabelInput>
 				<input
 					type="text"
-					name="user"
+					name="name"
 					onChange={(e) => handleFormChange(e)}
-					value={credentialDataInput.user}
+					value={credentialDataInput.name}
 					required
 				/>
 				<LabelInput>Senha</LabelInput>
@@ -76,7 +97,7 @@ export default function NewCredential() {
 			</Box>
 			<Bottom>
 				<BackButton onClick={backToNewRecords}>{"< Voltar"}</BackButton>
-				<AddButton onClick={""}>+</AddButton>
+				<AddButton onClick={sendInformation}>+</AddButton>
 			</Bottom>
 		</MainScreen>
 	);

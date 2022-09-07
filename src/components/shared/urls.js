@@ -4,10 +4,10 @@ const urls = {
 	login: `${BASE_URL}/login`,
 	signup: `${BASE_URL}/signup`,
 	records: `${BASE_URL}/records`,
-	credentials: `${BASE_URL}/records/credentials`,
-	notes: `${BASE_URL}/records/notes`,
-	cards: `${BASE_URL}/records/cards`,
-	wifis: `${BASE_URL}/records/wifis`,
+	credentials: `${BASE_URL}/credentials`,
+	notes: `${BASE_URL}/notes`,
+	cards: `${BASE_URL}/cards`,
+	wifis: `${BASE_URL}/wifis`,
 };
 
 export default urls;

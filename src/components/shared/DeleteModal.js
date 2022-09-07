@@ -2,29 +2,29 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
-export default function SuccessModal({
-	isSuccessModalOpen,
-	setIsSuccessModalOpen,
+export default function DeleteModal({
+	isDeleteModalOpen,
+	setIsDeleteModalOpen,
 }) {
 	const navigate = useNavigate();
 
 	function closeModal() {
-		setIsSuccessModalOpen(false);
+		setIsDeleteModalOpen(false);
 		navigate("/main");
 	}
 
 	return (
 		<div>
 			<Modal
-				isOpen={isSuccessModalOpen}
+				isOpen={isDeleteModalOpen}
 				onRequestClose={closeModal}
 				ariaHideApp={false}
 				className="Modal"
 				overlayClassName="Overlay"
 			>
 				<Box>
-					<TextTitle>Muito bem! </TextTitle>
-					<Text>Registro efetuado com sucesso!</Text>
+					<TextTitle>Muito bem!</TextTitle>
+					<Text>Registro deletado com sucesso!</Text>
 					<BoxButton>
 						<ButtonOk onClick={closeModal}>Ok</ButtonOk>
 					</BoxButton>

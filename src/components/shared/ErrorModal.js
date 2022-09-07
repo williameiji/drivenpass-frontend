@@ -1,30 +1,23 @@
 import styled from "styled-components";
 import Modal from "react-modal";
-import { useNavigate } from "react-router-dom";
 
-export default function SuccessModal({
-	isSuccessModalOpen,
-	setIsSuccessModalOpen,
-}) {
-	const navigate = useNavigate();
-
+export default function ErrorModal({ isErrorModalOpen, setIsErrorModalOpen }) {
 	function closeModal() {
-		setIsSuccessModalOpen(false);
-		navigate("/main");
+		setIsErrorModalOpen(false);
 	}
 
 	return (
 		<div>
 			<Modal
-				isOpen={isSuccessModalOpen}
+				isOpen={isErrorModalOpen}
 				onRequestClose={closeModal}
 				ariaHideApp={false}
 				className="Modal"
 				overlayClassName="Overlay"
 			>
 				<Box>
-					<TextTitle>Muito bem! </TextTitle>
-					<Text>Registro efetuado com sucesso!</Text>
+					<TextTitle>Ooooops! </TextTitle>
+					<Text>Algo deu errado.</Text>
 					<BoxButton>
 						<ButtonOk onClick={closeModal}>Ok</ButtonOk>
 					</BoxButton>
@@ -50,18 +43,18 @@ const TextTitle = styled.p`
 	margin-bottom: 20px;
 `;
 
-const BoxButton = styled.div`
-	display: flex;
-	align-items: center;
-	width: 100%;
-	margin: 40px 0 0 0;
-`;
-
 const Text = styled.p`
 	font-family: "Recursive";
 	font-size: 18px;
 	text-align: center;
 	color: #000000;
+`;
+
+const BoxButton = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 40px 0 0 0;
 `;
 
 const ButtonOk = styled.button`

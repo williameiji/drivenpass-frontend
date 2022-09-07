@@ -45,8 +45,8 @@ export default function Wifis() {
 			) : !wifis.length ? (
 				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
-				wifis.map((elem) => (
-					<Box onClick={goToWifi}>
+				wifis.map((elem, index) => (
+					<Box key={index} onClick={goToWifi}>
 						<WifiLogo />
 						<Text>{elem.title}</Text>
 					</Box>

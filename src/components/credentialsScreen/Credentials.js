@@ -31,8 +31,12 @@ export default function Credentials() {
 			});
 	}, []);
 
-	function goToCredential() {
-		navigate(`/credential`);
+	function goToCredential(id) {
+		navigate(`/credential/${id}`);
+	}
+
+	function goToNewPasswords() {
+		navigate("/newrecord");
 	}
 
 	return (
@@ -45,14 +49,14 @@ export default function Credentials() {
 			) : !credentials.length ? (
 				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
-				credentials.map((elem) => (
-					<Box onClick={goToCredential}>
+				credentials.map((elem, index) => (
+					<Box key={index} onClick={() => goToCredential(elem.id)}>
 						<CredentialsLogo />
 						<Text>{elem.title}</Text>
 					</Box>
 				))
 			)}
-			<AddButton>+</AddButton>
+			<AddButton onClick={goToNewPasswords}>+</AddButton>
 		</MainScreen>
 	);
 }

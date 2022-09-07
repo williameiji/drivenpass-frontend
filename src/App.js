@@ -27,7 +27,6 @@ export default function App() {
 	const [userInformation, setUserInformation] = useState(null);
 	const [informations, setInformations] = useState(null);
 
-	console.log(userInformation);
 	return (
 		<>
 			<GlobalResetStyle />

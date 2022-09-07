@@ -26,7 +26,7 @@ export default function Wifi() {
 
 	useEffect(() => {
 		axios
-			.get(`${urls.cards}/${id}`, config)
+			.get(`${urls.wifis}/${id}`, config)
 			.then((response) => {
 				setWifi(response.data);
 			})
@@ -49,13 +49,13 @@ export default function Wifi() {
 			) : (
 				<>
 					<Box>
-						<Text>{`Site 1`}</Text>
+						<Text>{wifi.title}</Text>
 						<Title>URL</Title>
-						<Text>https://linux.com.br</Text>
+						<Text>{wifi.url}</Text>
 						<Title>Usuário</Title>
-						<Text>PinguimMaluco</Text>
+						<Text>{wifi.name}</Text>
 						<Title>Senha</Title>
-						<Text>XXAS@123i_ll</Text>
+						<Text>{wifi.password}</Text>
 					</Box>
 					<Bottom>
 						<BackButton onClick={backToWifis}>{"< Voltar"}</BackButton>

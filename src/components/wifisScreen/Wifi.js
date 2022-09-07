@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { IoCloseCircle } from "react-icons/io5";
 
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
@@ -121,7 +122,7 @@ const Bottom = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	padding: 20px 15px;
+	padding: 10px 15px;
 `;
 
 const BackButton = styled.div`
@@ -132,17 +133,9 @@ const BackButton = styled.div`
 	color: #000000;
 `;
 
-const DeleteButton = styled.div`
-	width: 61px;
-	height: 61px;
-	border-radius: 50px;
-	background: #f52424;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	font-size: 25px;
-	font-weight: bold;
+const DeleteButton = styled(IoCloseCircle)`
+	color: #f52424;
+	font-size: 90px;
 `;
 
 const BoxLoading = styled.div`

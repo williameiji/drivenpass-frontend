@@ -24,6 +24,8 @@ import NewWifi from "./components/newRecord/NewWifi";
 export default function App() {
 	const [userInformation, setUserInformation] = useState(null);
 
+	console.log(userInformation);
+
 	return (
 		<>
 			<GlobalResetStyle />

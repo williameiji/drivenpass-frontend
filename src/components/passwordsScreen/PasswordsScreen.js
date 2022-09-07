@@ -3,6 +3,7 @@ import { IoLogIn } from "react-icons/io5";
 import { IoPencil } from "react-icons/io5";
 import { IoWallet } from "react-icons/io5";
 import { IoWifi } from "react-icons/io5";
+import { IoAddCircle } from "react-icons/io5";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -90,7 +91,9 @@ export default function PasswordsScreen() {
 							</div>
 							<Counter>{counterTypes.wifis}</Counter>
 						</BoxTypes>
-						<AddButton onClick={goToNewRecord}>+</AddButton>
+						<Bottom>
+							<AddButton onClick={goToNewRecord}>+</AddButton>
+						</Bottom>
 					</Box>
 				)}
 			</MainScreen>
@@ -170,17 +173,18 @@ const Counter = styled.div`
 	border-radius: 50px;
 `;
 
-const AddButton = styled.div`
-	width: 61px;
-	height: 61px;
-	border-radius: 50px;
-	background: #005985;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	font-size: 40px;
+const AddButton = styled(IoAddCircle)`
+	color: #005985;
+	font-size: 90px;
+`;
+
+const Bottom = styled.div`
 	position: absolute;
-	bottom: 15px;
-	right: 10px;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: end;
+	width: 100%;
+	padding: 10px 15px;
 `;

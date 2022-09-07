@@ -36,6 +36,10 @@ const Box = styled.div`
 	width: 100%;
 	padding: 15px 10px;
 	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	right: 0;
+	background-color: white;
 
 	div {
 		display: flex;

@@ -115,11 +115,11 @@ export default function NewCard() {
 					required
 				/>
 				<div>
-					<LabelInput htmlFor="virtual"> Virtual</LabelInput>
+					<LabelInput htmlFor="isVirtual"> Virtual</LabelInput>
 					<input
 						type="checkbox"
-						id="virtual"
-						name="virtual"
+						id="isVirtual"
+						name="isVirtual"
 						value={true}
 						onChange={(e) => handleFormChange(e)}
 					/>
@@ -154,7 +154,7 @@ export default function NewCard() {
 						value={"ambos"}
 						onChange={(e) => handleFormChange(e)}
 					/>
-					<LabelInput for="ambos">Ambos</LabelInput>
+					<LabelInput htmlFor="ambos">Ambos</LabelInput>
 				</div>
 			</Box>
 			<Bottom>
@@ -185,7 +185,6 @@ const Box = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 40px 20px;
-	margin-bottom: 80px;
 
 	div {
 		margin-top: 12px;

@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { IoWallet } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { IoAddCircle } from "react-icons/io5";
 
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
@@ -56,7 +57,9 @@ export default function Cards() {
 					</Box>
 				))
 			)}
-			<AddButton onClick={goToNewPasswords}>+</AddButton>
+			<Bottom>
+				<AddButton onClick={goToNewPasswords}>+</AddButton>
+			</Bottom>
 		</MainScreen>
 	);
 }
@@ -78,7 +81,7 @@ const CardsLogo = styled(IoWallet)`
 const Box = styled.div`
 	display: flex;
 	align-items: center;
-	padding: 40px 20px;
+	padding: 10px 20px;
 `;
 
 const Text = styled.p`
@@ -95,22 +98,23 @@ const BoxLoading = styled.div`
 	padding: 0 40px 0 0;
 `;
 
-const AddButton = styled.div`
-	width: 61px;
-	height: 61px;
-	border-radius: 50px;
-	background: #005985;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	font-size: 40px;
-	position: absolute;
-	bottom: 15px;
-	right: 10px;
+const AddButton = styled(IoAddCircle)`
+	color: #005985;
+	font-size: 90px;
 `;
 
 const NotFound = styled.p`
 	margin-top: 20px;
 	text-align: center;
+`;
+
+const Bottom = styled.div`
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: end;
+	width: 100%;
+	padding: 10px 15px;
 `;

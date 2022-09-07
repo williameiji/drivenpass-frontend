@@ -3,6 +3,7 @@ import { IoLogIn } from "react-icons/io5";
 import { IoPencil } from "react-icons/io5";
 import { IoWallet } from "react-icons/io5";
 import { IoWifi } from "react-icons/io5";
+import { IoAddCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import MainScreen from "../mainScreen/MainScreen";
@@ -124,16 +125,9 @@ const Bottom = styled.div`
 	padding: 10px 15px;
 `;
 
-const AddButton = styled.div`
-	width: 61px;
-	height: 61px;
-	border-radius: 50px;
-	background: #005985;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	font-size: 40px;
+const AddButton = styled(IoAddCircle)`
+	color: #005985;
+	font-size: 90px;
 `;
 
 const BackButton = styled.div`

@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { IoLogIn } from "react-icons/io5";
-import { IoPencil } from "react-icons/io5";
-import { IoWallet } from "react-icons/io5";
-import { IoWifi } from "react-icons/io5";
-import { IoAddCircle } from "react-icons/io5";
+import {
+	IoLogIn,
+	IoDocuments,
+	IoAddCircle,
+	IoWifi,
+	IoWallet,
+	IoPencil,
+} from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import MainScreen from "../mainScreen/MainScreen";
@@ -35,6 +38,10 @@ export default function NewRecordScreen() {
 		navigate("/newwifi");
 	}
 
+	function goToNewDocument() {
+		navigate("/newdocument");
+	}
+
 	return (
 		<MainScreen>
 			<Title>Categorias</Title>
@@ -54,6 +61,10 @@ export default function NewRecordScreen() {
 				<BoxTypes onClick={goToNewWifi}>
 					<WifiLogo />
 					<Text>Senhas de Wi-fi</Text>
+				</BoxTypes>
+				<BoxTypes onClick={goToNewDocument}>
+					<DocumentsLogo />
+					<Text>Documentos</Text>
 				</BoxTypes>
 			</Box>
 			<Bottom>
@@ -102,6 +113,11 @@ const CardsLogo = styled(IoWallet)`
 `;
 
 const WifiLogo = styled(IoWifi)`
+	font-size: 55px;
+	color: #005985;
+`;
+
+const DocumentsLogo = styled(IoDocuments)`
 	font-size: 55px;
 	color: #005985;
 `;

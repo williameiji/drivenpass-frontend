@@ -20,11 +20,12 @@ import NewCredential from "./components/newRecord/NewCredential";
 import NewNote from "./components/newRecord/NewNote";
 import NewCard from "./components/newRecord/NewCard";
 import NewWifi from "./components/newRecord/NewWifi";
+import Documents from "./components/documentsScreen/Documents";
+import Document from "./components/documentsScreen/Document";
+import NewDocument from "./components/newRecord/NewDocument";
 
 export default function App() {
 	const [userInformation, setUserInformation] = useState(null);
-
-	console.log(userInformation);
 
 	return (
 		<>
@@ -49,6 +50,9 @@ export default function App() {
 						<Route path="/newnote" element={<NewNote />} />
 						<Route path="/newcard" element={<NewCard />} />
 						<Route path="/newwifi" element={<NewWifi />} />
+						<Route path="/documents" element={<Documents />} />
+						<Route path="/document/:id" element={<Document />} />
+						<Route path="/newdocument" element={<NewDocument />} />
 					</Routes>
 				</BrowserRouter>
 			</UserContext.Provider>

@@ -8,6 +8,7 @@ const urls = {
 	notes: `${BASE_URL}/notes`,
 	cards: `${BASE_URL}/cards`,
 	wifis: `${BASE_URL}/wifis`,
+	documents: `${BASE_URL}/documents`,
 };
 
 export default urls;

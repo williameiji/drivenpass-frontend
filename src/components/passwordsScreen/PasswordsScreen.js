@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { IoLogIn } from "react-icons/io5";
-import { IoPencil } from "react-icons/io5";
-import { IoWallet } from "react-icons/io5";
-import { IoWifi } from "react-icons/io5";
-import { IoAddCircle } from "react-icons/io5";
+import {
+	IoLogIn,
+	IoAddCircle,
+	IoDocuments,
+	IoWifi,
+	IoWallet,
+	IoPencil,
+} from "react-icons/io5";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -53,6 +56,10 @@ export default function PasswordsScreen() {
 		navigate("/newrecord");
 	}
 
+	function goToDocuments() {
+		navigate("/documents");
+	}
+
 	return (
 		<>
 			<MainScreen>
@@ -90,6 +97,13 @@ export default function PasswordsScreen() {
 								<Text>Senhas de Wi-fi</Text>
 							</div>
 							<Counter>{counterTypes.wifis}</Counter>
+						</BoxTypes>
+						<BoxTypes onClick={goToDocuments}>
+							<div>
+								<DocumentsLogo />
+								<Text>Documentos</Text>
+							</div>
+							<Counter>{counterTypes.documents}</Counter>
 						</BoxTypes>
 						<Bottom>
 							<AddButton onClick={goToNewRecord}>+</AddButton>
@@ -151,6 +165,11 @@ const CardsLogo = styled(IoWallet)`
 `;
 
 const WifiLogo = styled(IoWifi)`
+	font-size: 55px;
+	color: #005985;
+`;
+
+const DocumentsLogo = styled(IoDocuments)`
 	font-size: 55px;
 	color: #005985;
 `;

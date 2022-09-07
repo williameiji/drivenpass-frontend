@@ -69,8 +69,6 @@ export default function Wifi() {
 				<>
 					<Box>
 						<Text>{wifi.title}</Text>
-						<Title>URL</Title>
-						<Text>{wifi.url}</Text>
 						<Title>Usuário</Title>
 						<Text>{wifi.name}</Text>
 						<Title>Senha</Title>

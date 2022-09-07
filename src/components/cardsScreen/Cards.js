@@ -32,7 +32,7 @@ export default function Cards() {
 	}, []);
 
 	function goToCard(id) {
-		navigate(`/note/${id}`);
+		navigate(`/card/${id}`);
 	}
 
 	function goToNewPasswords() {

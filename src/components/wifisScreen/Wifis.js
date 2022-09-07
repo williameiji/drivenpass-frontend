@@ -31,8 +31,8 @@ export default function Wifis() {
 			});
 	}, []);
 
-	function goToWifi() {
-		navigate(`/wifi`);
+	function goToWifi(id) {
+		navigate(`/wifi/${id}`);
 	}
 
 	function goToNewPasswords() {

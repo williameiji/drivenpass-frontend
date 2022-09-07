@@ -4,8 +4,6 @@ import { useState } from "react";
 import GlobalResetStyle from "../src/assets/css/GlobalResetStyle";
 import GlobalStyle from "../src/assets/css/GlobalStyle";
 import UserContext from "../src/components/context/UserContext";
-import InformationsContext from "../src/components/context/InformationsContext";
-
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import PasswordsScreen from "./components/passwordsScreen/PasswordsScreen";
@@ -25,35 +23,32 @@ import NewWifi from "./components/newRecord/NewWifi";
 
 export default function App() {
 	const [userInformation, setUserInformation] = useState(null);
-	const [informations, setInformations] = useState(null);
 
 	return (
 		<>
 			<GlobalResetStyle />
 			<GlobalStyle />
 			<UserContext.Provider value={{ setUserInformation, userInformation }}>
-				<InformationsContext.Provider value={{ informations, setInformations }}>
-					<BrowserRouter>
-						<Routes>
-							<Route path="/" element={<Login />} />
-							<Route path="/signup" element={<Signup />} />
-							<Route path="/main" element={<PasswordsScreen />} />
-							<Route path="/credentials" element={<Credentials />} />
-							<Route path="/credential/:id" element={<Credential />} />
-							<Route path="/notes" element={<Notes />} />
-							<Route path="/note/:id" element={<Note />} />
-							<Route path="/cards" element={<Cards />} />
-							<Route path="/card/:id" element={<Card />} />
-							<Route path="/wifis" element={<Wifis />} />
-							<Route path="/wifi/:id" element={<Wifi />} />
-							<Route path="/newrecord" element={<NewRecordScreen />} />
-							<Route path="/newcredential" element={<NewCredential />} />
-							<Route path="/newnote" element={<NewNote />} />
-							<Route path="/newcard" element={<NewCard />} />
-							<Route path="/newwifi" element={<NewWifi />} />
-						</Routes>
-					</BrowserRouter>
-				</InformationsContext.Provider>
+				<BrowserRouter>
+					<Routes>
+						<Route path="/" element={<Login />} />
+						<Route path="/signup" element={<Signup />} />
+						<Route path="/main" element={<PasswordsScreen />} />
+						<Route path="/credentials" element={<Credentials />} />
+						<Route path="/credential/:id" element={<Credential />} />
+						<Route path="/notes" element={<Notes />} />
+						<Route path="/note/:id" element={<Note />} />
+						<Route path="/cards" element={<Cards />} />
+						<Route path="/card/:id" element={<Card />} />
+						<Route path="/wifis" element={<Wifis />} />
+						<Route path="/wifi/:id" element={<Wifi />} />
+						<Route path="/newrecord" element={<NewRecordScreen />} />
+						<Route path="/newcredential" element={<NewCredential />} />
+						<Route path="/newnote" element={<NewNote />} />
+						<Route path="/newcard" element={<NewCard />} />
+						<Route path="/newwifi" element={<NewWifi />} />
+					</Routes>
+				</BrowserRouter>
 			</UserContext.Provider>
 		</>
 	);

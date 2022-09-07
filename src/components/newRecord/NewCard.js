@@ -115,7 +115,7 @@ export default function NewCard() {
 					required
 				/>
 				<div>
-					<LabelInput for="virtual"> Virtual</LabelInput>
+					<LabelInput htmlFor="virtual"> Virtual</LabelInput>
 					<input
 						type="checkbox"
 						id="virtual"
@@ -134,7 +134,7 @@ export default function NewCard() {
 						value={"crédito"}
 						onChange={(e) => handleFormChange(e)}
 					/>
-					<LabelInput for="crédito">Crédito</LabelInput>
+					<LabelInput htmlFor="crédito">Crédito</LabelInput>
 				</div>
 				<div>
 					<input
@@ -144,7 +144,7 @@ export default function NewCard() {
 						value={"débito"}
 						onChange={(e) => handleFormChange(e)}
 					/>
-					<LabelInput for="débito">Débito</LabelInput>
+					<LabelInput htmlFor="débito">Débito</LabelInput>
 				</div>
 				<div>
 					<input

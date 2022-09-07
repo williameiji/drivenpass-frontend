@@ -103,6 +103,8 @@ const Text = styled.p`
 	font-size: 20px;
 	color: #222222;
 	margin-top: 8px;
+	word-break: break-all;
+	word-wrap: break-word;
 `;
 
 const TitleWifis = styled.div`

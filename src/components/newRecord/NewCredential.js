@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

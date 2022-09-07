@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
-import ErrorModal from "../shared/ErrorModal";
+import ErrorModal from "./ErrorModal";
+import UserContext from "../context/UserContext";
+import urls from "../shared/urls";
 
 export default function NewNote() {
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -15,11 +18,29 @@ export default function NewNote() {
 		title: "",
 		note: "",
 	});
+	const { userInformation } = useContext(UserContext);
 
 	function handleFormChange(e) {
 		let data = { ...noteDataInput };
 		data[e.target.name] = e.target.value;
 		setNoteDataInput(data);
+	}
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userInformation}`,
+		},
+	};
+
+	async function sendInformation() {
+		axios
+			.post(urls.notes, noteDataInput, config)
+			.then((response) => {
+				setIsSuccessModalOpen(true);
+			})
+			.catch((err) => {
+				setIsErrorModalOpen(true);
+			});
 	}
 
 	function backToNewRecords() {
@@ -60,7 +81,7 @@ export default function NewNote() {
 			</Box>
 			<Bottom>
 				<BackButton onClick={backToNewRecords}>{"< Voltar"}</BackButton>
-				<AddButton onClick={""}>+</AddButton>
+				<AddButton onClick={sendInformation}>+</AddButton>
 			</Bottom>
 		</MainScreen>
 	);

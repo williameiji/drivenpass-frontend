@@ -10,7 +10,7 @@ import LoadingData from "../shared/LoadingData";
 import urls from "../shared/urls";
 
 export default function Notes() {
-	const [notes, setNotes] = useState(true);
+	const [notes, setNotes] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 
@@ -31,8 +31,12 @@ export default function Notes() {
 			});
 	}, []);
 
-	function goToNote(data, index) {
-		navigate(`/note`);
+	function goToNote(id) {
+		navigate(`/note/${id}`);
+	}
+
+	function goToNewPasswords() {
+		navigate("/newrecord");
 	}
 
 	return (
@@ -45,14 +49,14 @@ export default function Notes() {
 			) : !notes.length ? (
 				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
-				notes.map((elem) => (
-					<Box onClick={goToNote}>
+				notes.map((elem, index) => (
+					<Box key={index} onClick={() => goToNote(elem.id)}>
 						<NotesLogo />
 						<Text>{elem.title}</Text>
 					</Box>
 				))
 			)}
-			<AddButton>+</AddButton>
+			<AddButton onClick={goToNewPasswords}>+</AddButton>
 		</MainScreen>
 	);
 }

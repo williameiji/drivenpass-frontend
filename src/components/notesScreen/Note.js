@@ -6,10 +6,14 @@ import axios from "axios";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import DeleteModal from "../shared/DeleteModal";
+import ErrorModal from "../shared/ErrorModal";
 import urls from "../shared/urls";
 
 export default function Note() {
-	const [note, setNote] = useState(true);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [note, setNote] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -36,12 +40,26 @@ export default function Note() {
 	}, []);
 
 	function deleteNote(id) {
-		axios.delete(`delete/${id}`);
+		axios
+			.delete(`${urls.notes}/${id}`, config)
+			.then(() => {
+				setIsDeleteModalOpen(true);
+			})
+			.catch(() => {
+				setIsErrorModalOpen(true);
+			});
 	}
-
 	return (
 		<MainScreen>
-			{note ? (
+			<DeleteModal
+				isDeleteModalOpen={isDeleteModalOpen}
+				setIsDeleteModalOpen={setIsDeleteModalOpen}
+			/>
+			<ErrorModal
+				isErrorModalOpen={isErrorModalOpen}
+				setIsErrorModalOpen={setIsErrorModalOpen}
+			/>
+			{!note ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
@@ -49,17 +67,13 @@ export default function Note() {
 				<>
 					<TitleNotes>Notas seguras</TitleNotes>
 					<Box>
-						<Text>{`Site 1`}</Text>
-						<Title>URL</Title>
-						<Text>https://linux.com.br</Text>
-						<Title>Usuário</Title>
-						<Text>PinguimMaluco</Text>
-						<Title>Senha</Title>
-						<Text>XXAS@123i_ll</Text>
+						<Text>{note.title}</Text>
+						<Title>Nota</Title>
+						<Text>{note.note}</Text>
 					</Box>
 					<Bottom>
 						<BackButton onClick={backToNotes}>{"< Voltar"}</BackButton>
-						<DeleteButton onClick={() => deleteNote()}>X</DeleteButton>
+						<DeleteButton onClick={() => deleteNote(note.id)}>X</DeleteButton>
 					</Bottom>
 				</>
 			)}

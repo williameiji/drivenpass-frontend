@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { IoWallet } from "react-icons/io5";
+import { IoWallet, IoAddCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { IoAddCircle } from "react-icons/io5";
 
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Cards() {
@@ -15,15 +15,9 @@ export default function Cards() {
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	useEffect(() => {
 		axios
-			.get(urls.cards, config)
+			.get(urls.cards, config(userInformation))
 			.then((response) => {
 				setCards(response.data);
 			})

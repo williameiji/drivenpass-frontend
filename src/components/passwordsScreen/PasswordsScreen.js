@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function PasswordsScreen() {
@@ -22,14 +23,8 @@ export default function PasswordsScreen() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const config = {
-			headers: {
-				Authorization: `Bearer ${userInformation}`,
-			},
-		};
-
 		axios
-			.get(urls.records, config)
+			.get(urls.records, config(userInformation))
 			.then((response) => {
 				setCounterTypes(response.data);
 			})

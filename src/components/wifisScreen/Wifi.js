@@ -9,6 +9,7 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import DeleteModal from "../shared/DeleteModal";
 import ErrorModal from "../shared/ErrorModal";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Wifi() {
@@ -23,15 +24,9 @@ export default function Wifi() {
 		navigate("/wifis");
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	useEffect(() => {
 		axios
-			.get(`${urls.wifis}/${id}`, config)
+			.get(`${urls.wifis}/${id}`, config(userInformation))
 			.then((response) => {
 				setWifi(response.data);
 			})
@@ -42,7 +37,7 @@ export default function Wifi() {
 
 	function deleteWifi(id) {
 		axios
-			.delete(`${urls.wifis}/${id}`, config)
+			.delete(`${urls.wifis}/${id}`, config(userInformation))
 			.then(() => {
 				setIsDeleteModalOpen(true);
 			})

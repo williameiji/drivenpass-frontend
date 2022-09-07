@@ -8,6 +8,7 @@ import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
 import UserContext from "../context/UserContext";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function NewCredential() {
@@ -28,15 +29,9 @@ export default function NewCredential() {
 		setCredentialDataInput(data);
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	async function sendInformation() {
 		axios
-			.post(urls.credentials, credentialDataInput, config)
+			.post(urls.credentials, credentialDataInput, config(userInformation))
 			.then((response) => {
 				setIsSuccessModalOpen(true);
 			})

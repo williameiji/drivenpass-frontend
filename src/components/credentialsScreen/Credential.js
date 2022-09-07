@@ -9,6 +9,7 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import DeleteModal from "../shared/DeleteModal";
 import ErrorModal from "../shared/ErrorModal";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Credential() {
@@ -23,15 +24,9 @@ export default function Credential() {
 		navigate("/credentials");
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	useEffect(() => {
 		axios
-			.get(`${urls.credentials}/${id}`, config)
+			.get(`${urls.credentials}/${id}`, config(userInformation))
 			.then((response) => {
 				setCredential(response.data);
 			})
@@ -42,7 +37,7 @@ export default function Credential() {
 
 	function deleteCredential(id) {
 		axios
-			.delete(`${urls.credentials}/${id}`, config)
+			.delete(`${urls.credentials}/${id}`, config(userInformation))
 			.then(() => {
 				setIsDeleteModalOpen(true);
 			})

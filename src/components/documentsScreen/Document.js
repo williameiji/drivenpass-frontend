@@ -9,6 +9,7 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import DeleteModal from "../shared/DeleteModal";
 import ErrorModal from "../shared/ErrorModal";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Document() {
@@ -23,15 +24,9 @@ export default function Document() {
 		navigate("/documents");
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	useEffect(() => {
 		axios
-			.get(`${urls.documents}/${id}`, config)
+			.get(`${urls.documents}/${id}`, config(userInformation))
 			.then((response) => {
 				setDocument(response.data);
 			})
@@ -42,7 +37,7 @@ export default function Document() {
 
 	function deleteDocument(id) {
 		axios
-			.delete(`${urls.documents}/${id}`, config)
+			.delete(`${urls.documents}/${id}`, config(userInformation))
 			.then(() => {
 				setIsDeleteModalOpen(true);
 			})

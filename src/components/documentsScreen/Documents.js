@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Documents() {
@@ -14,15 +15,9 @@ export default function Documents() {
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	useEffect(() => {
 		axios
-			.get(urls.documents, config)
+			.get(urls.documents, config(userInformation))
 			.then((response) => {
 				setDocuments(response.data);
 			})

@@ -8,6 +8,7 @@ import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
 import UserContext from "../context/UserContext";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function NewNote() {
@@ -26,15 +27,9 @@ export default function NewNote() {
 		setNoteDataInput(data);
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	async function sendInformation() {
 		axios
-			.post(urls.notes, noteDataInput, config)
+			.post(urls.notes, noteDataInput, config(userInformation))
 			.then((response) => {
 				setIsSuccessModalOpen(true);
 			})

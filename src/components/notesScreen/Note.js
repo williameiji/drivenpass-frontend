@@ -9,6 +9,7 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import DeleteModal from "../shared/DeleteModal";
 import ErrorModal from "../shared/ErrorModal";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Note() {
@@ -23,15 +24,9 @@ export default function Note() {
 		navigate("/notes");
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	useEffect(() => {
 		axios
-			.get(`${urls.notes}/${id}`, config)
+			.get(`${urls.notes}/${id}`, config(userInformation))
 			.then((response) => {
 				setNote(response.data);
 			})
@@ -42,7 +37,7 @@ export default function Note() {
 
 	function deleteNote(id) {
 		axios
-			.delete(`${urls.notes}/${id}`, config)
+			.delete(`${urls.notes}/${id}`, config(userInformation))
 			.then(() => {
 				setIsDeleteModalOpen(true);
 			})

@@ -8,6 +8,7 @@ import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "../shared/ErrorModal";
 import UserContext from "../context/UserContext";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function NewWifi() {
@@ -27,15 +28,9 @@ export default function NewWifi() {
 		setWifiDataInput(data);
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	async function sendInformation() {
 		axios
-			.post(urls.wifis, wifiDataInput, config)
+			.post(urls.wifis, wifiDataInput, config(userInformation))
 			.then((response) => {
 				setIsSuccessModalOpen(true);
 			})

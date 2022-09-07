@@ -9,6 +9,7 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import DeleteModal from "../shared/DeleteModal";
 import ErrorModal from "../shared/ErrorModal";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Card() {
@@ -23,15 +24,9 @@ export default function Card() {
 		navigate("/cards");
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	useEffect(() => {
 		axios
-			.get(`${urls.cards}/${id}`, config)
+			.get(`${urls.cards}/${id}`, config(userInformation))
 			.then((response) => {
 				setCard(response.data);
 			})
@@ -42,7 +37,7 @@ export default function Card() {
 
 	function deleteCards(id) {
 		axios
-			.delete(`${urls.cards}/${id}`, config)
+			.delete(`${urls.cards}/${id}`, config(userInformation))
 			.then(() => {
 				setIsDeleteModalOpen(true);
 			})

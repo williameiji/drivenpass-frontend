@@ -8,6 +8,7 @@ import MainScreen from "../mainScreen/MainScreen";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
 import UserContext from "../context/UserContext";
+import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function NewCard() {
@@ -32,15 +33,9 @@ export default function NewCard() {
 		setCardDataInput(data);
 	}
 
-	const config = {
-		headers: {
-			Authorization: `Bearer ${userInformation}`,
-		},
-	};
-
 	async function sendInformation() {
 		axios
-			.post(urls.cards, cardDataInput, config)
+			.post(urls.cards, cardDataInput, config(userInformation))
 			.then((response) => {
 				setIsSuccessModalOpen(true);
 			})

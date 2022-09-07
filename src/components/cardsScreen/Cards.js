@@ -7,46 +7,48 @@ import { useNavigate } from "react-router-dom";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
-import InformationsContext from "../context/InformationsContext";
+import urls from "../shared/urls";
 
 export default function Cards() {
 	const [cards, setCards] = useState(true);
 	const { userInformation } = useContext(UserContext);
-	const { setInformations } = useContext(InformationsContext);
 	const navigate = useNavigate();
 
-	// const config = {
-	// 	headers: {
-	// 		Authorization: `Bearer ${userInformation.token}`,
-	// 	},
-	// };
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userInformation}`,
+		},
+	};
 
-	// useEffect(() => {
-	// 	axios
-	// 		.get("allNotes", config)
-	// 		.then((response) => {
-	// 			setCards(response.data);
-	// 		})
-	// 		.catch((err) => {});
-	// }, []);
+	useEffect(() => {
+		axios
+			.get(urls.cards, config)
+			.then((response) => {
+				setCards(response.data);
+			})
+			.catch((err) => {
+				alert(err.response.data);
+			});
+	}, []);
 
-	function goToCard(data, index) {
-		setInformations({ ...data, index });
+	function goToCard() {
 		navigate(`/note`);
 	}
 
 	return (
 		<MainScreen>
 			<Title>Cartões</Title>
-			{cards ? (
+			{!cards ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
+			) : !cards.length ? (
+				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
-				cards.map((elem, index) => (
-					<Box onClick={() => goToCard(elem, index)}>
+				cards.map((elem) => (
+					<Box onClick={goToCard}>
 						<CardsLogo />
-						<Text>{`Cartão ${index + 1}`}</Text>
+						<Text>{elem.title}</Text>
 					</Box>
 				))
 			)}
@@ -102,4 +104,9 @@ const AddButton = styled.div`
 	position: absolute;
 	bottom: 15px;
 	right: 10px;
+`;
+
+const NotFound = styled.p`
+	margin-top: 20px;
+	text-align: center;
 `;

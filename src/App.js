@@ -26,6 +26,8 @@ import NewWifi from "./components/newRecord/NewWifi";
 export default function App() {
 	const [userInformation, setUserInformation] = useState(null);
 	const [informations, setInformations] = useState(null);
+
+	console.log(userInformation);
 	return (
 		<>
 			<GlobalResetStyle />
@@ -38,13 +40,13 @@ export default function App() {
 							<Route path="/signup" element={<Signup />} />
 							<Route path="/main" element={<PasswordsScreen />} />
 							<Route path="/credentials" element={<Credentials />} />
-							<Route path="/credential" element={<Credential />} />
+							<Route path="/credential/:id" element={<Credential />} />
 							<Route path="/notes" element={<Notes />} />
-							<Route path="/note" element={<Note />} />
+							<Route path="/note/:id" element={<Note />} />
 							<Route path="/cards" element={<Cards />} />
-							<Route path="/card" element={<Card />} />
+							<Route path="/card/:id" element={<Card />} />
 							<Route path="/wifis" element={<Wifis />} />
-							<Route path="/wifi" element={<Wifi />} />
+							<Route path="/wifi/:id" element={<Wifi />} />
 							<Route path="/newrecord" element={<NewRecordScreen />} />
 							<Route path="/newcredential" element={<NewCredential />} />
 							<Route path="/newnote" element={<NewNote />} />

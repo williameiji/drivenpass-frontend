@@ -10,26 +10,27 @@ import { useNavigate } from "react-router-dom";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
+import urls from "../shared/urls";
 
 export default function PasswordsScreen() {
-	const [counterTypes, setCounterTypes] = useState(true);
+	const [counterTypes, setCounterTypes] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 
-	// const config = {
-	// 	headers: {
-	// 		Authorization: `Bearer ${userInformation.token}`,
-	// 	},
-	// };
+	useEffect(() => {
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userInformation}`,
+			},
+		};
 
-	// useEffect(() => {
-	// 	axios
-	// 		.get("counterRoute", config)
-	// 		.then((response) => {
-	// 			setCounterTypes(response.data);
-	// 		})
-	// 		.catch((err) => {});
-	// }, []);
+		axios
+			.get(urls.records, config)
+			.then((response) => {
+				setCounterTypes(response.data);
+			})
+			.catch((err) => {});
+	}, []);
 
 	function goToCredencials() {
 		navigate("/credentials");
@@ -66,28 +67,28 @@ export default function PasswordsScreen() {
 								<CredentialsLogo />
 								<Text>Credenciais</Text>
 							</div>
-							{/* <Counter>{counterTypes.credentials}</Counter> */}
+							<Counter>{counterTypes.credentials}</Counter>
 						</BoxTypes>
 						<BoxTypes onClick={goToNotes}>
 							<div>
 								<NotesLogo />
 								<Text>Notas seguras</Text>
 							</div>
-							{/* <Counter>{counterTypes.notes}</Counter> */}
+							<Counter>{counterTypes.notes}</Counter>
 						</BoxTypes>
 						<BoxTypes onClick={goToCards}>
 							<div>
 								<CardsLogo />
 								<Text>Cartões</Text>
 							</div>
-							{/* <Counter>{counterTypes.cards}</Counter> */}
+							<Counter>{counterTypes.cards}</Counter>
 						</BoxTypes>
 						<BoxTypes onClick={goToWifis}>
 							<div>
 								<WifiLogo />
 								<Text>Senhas de Wi-fi</Text>
 							</div>
-							{/* <Counter>{counterTypes.wifi}</Counter> */}
+							<Counter>{counterTypes.wifis}</Counter>
 						</BoxTypes>
 						<AddButton onClick={goToNewRecord}>+</AddButton>
 					</Box>

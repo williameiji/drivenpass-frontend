@@ -7,46 +7,48 @@ import { useNavigate } from "react-router-dom";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
-import InformationsContext from "../context/InformationsContext";
+import urls from "../shared/urls";
 
 export default function Notes() {
 	const [notes, setNotes] = useState(true);
 	const { userInformation } = useContext(UserContext);
-	const { setInformations } = useContext(InformationsContext);
 	const navigate = useNavigate();
 
-	// const config = {
-	// 	headers: {
-	// 		Authorization: `Bearer ${userInformation.token}`,
-	// 	},
-	// };
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userInformation}`,
+		},
+	};
 
-	// useEffect(() => {
-	// 	axios
-	// 		.get("allNotes", config)
-	// 		.then((response) => {
-	// 			setNotes(response.data);
-	// 		})
-	// 		.catch((err) => {});
-	// }, []);
+	useEffect(() => {
+		axios
+			.get(urls.notes, config)
+			.then((response) => {
+				setNotes(response.data);
+			})
+			.catch((err) => {
+				alert(err.response.data);
+			});
+	}, []);
 
 	function goToNote(data, index) {
-		setInformations({ ...data, index });
 		navigate(`/note`);
 	}
 
 	return (
 		<MainScreen>
 			<Title>Notas seguras</Title>
-			{notes ? (
+			{!notes ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
+			) : !notes.length ? (
+				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
-				notes.map((elem, index) => (
-					<Box onClick={() => goToNote(elem, index)}>
+				notes.map((elem) => (
+					<Box onClick={goToNote}>
 						<NotesLogo />
-						<Text>{`Nota ${index + 1}`}</Text>
+						<Text>{elem.title}</Text>
 					</Box>
 				))
 			)}
@@ -102,4 +104,9 @@ const AddButton = styled.div`
 	position: absolute;
 	bottom: 15px;
 	right: 10px;
+`;
+
+const NotFound = styled.p`
+	margin-top: 20px;
+	text-align: center;
 `;

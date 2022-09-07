@@ -18,8 +18,11 @@ export default function NewCard() {
 		cvc: "",
 		date: "",
 		password: "",
+		isVirtual: false,
 		type: "",
 	});
+
+	console.log(cardDataInput);
 
 	function handleFormChange(e) {
 		let data = { ...cardDataInput };
@@ -92,6 +95,16 @@ export default function NewCard() {
 					value={cardDataInput.password}
 					required
 				/>
+				<div>
+					<LabelInput for="virtual"> Virtual</LabelInput>
+					<input
+						type="checkbox"
+						id="virtual"
+						name="virtual"
+						value={true}
+						onChange={(e) => handleFormChange(e)}
+					/>
+				</div>
 
 				<LabelInput>Tipo de cartão</LabelInput>
 				<div>

@@ -7,46 +7,48 @@ import { useNavigate } from "react-router-dom";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
-import InformationsContext from "../context/InformationsContext";
+import urls from "../shared/urls";
 
 export default function Credentials() {
-	const [credentials, setCredentials] = useState(true);
+	const [credentials, setCredentials] = useState(null);
 	const { userInformation } = useContext(UserContext);
-	const { setInformations } = useContext(InformationsContext);
 	const navigate = useNavigate();
 
-	// const config = {
-	// 	headers: {
-	// 		Authorization: `Bearer ${userInformation.token}`,
-	// 	},
-	// };
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userInformation}`,
+		},
+	};
 
-	// useEffect(() => {
-	// 	axios
-	// 		.get("allSites", config)
-	// 		.then((response) => {
-	// 			setCredentials(response.data);
-	// 		})
-	// 		.catch((err) => {});
-	// }, []);
+	useEffect(() => {
+		axios
+			.get(urls.credentials, config)
+			.then((response) => {
+				setCredentials(response.data);
+			})
+			.catch((err) => {
+				alert(err.response.data);
+			});
+	}, []);
 
-	function goToCredential(data, index) {
-		setInformations({ ...data, index });
+	function goToCredential() {
 		navigate(`/credential`);
 	}
 
 	return (
 		<MainScreen>
 			<Title>Credenciais</Title>
-			{credentials ? (
+			{!credentials ? (
 				<BoxLoading>
 					<LoadingData />
 				</BoxLoading>
+			) : !credentials.length ? (
+				<NotFound>Nenhum item encontrado!</NotFound>
 			) : (
-				credentials.map((elem, index) => (
-					<Box onClick={() => goToCredential(elem)}>
+				credentials.map((elem) => (
+					<Box onClick={goToCredential}>
 						<CredentialsLogo />
-						<Text>{`Site ${index + 1}`}</Text>
+						<Text>{elem.title}</Text>
 					</Box>
 				))
 			)}
@@ -102,4 +104,9 @@ const AddButton = styled.div`
 	position: absolute;
 	bottom: 15px;
 	right: 10px;
+`;
+
+const NotFound = styled.p`
+	margin-top: 20px;
+	text-align: center;
 `;

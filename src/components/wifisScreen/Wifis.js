@@ -11,7 +11,7 @@ import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function Wifis() {
-	const [wifis, setWifis] = useState(true);
+	const [wifis, setWifis] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 

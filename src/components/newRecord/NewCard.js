@@ -65,14 +65,16 @@ export default function NewCard() {
 				<input
 					type="text"
 					name="title"
+					placeholder="Ex: nubank"
 					onChange={(e) => handleFormChange(e)}
 					value={cardDataInput.title}
 					required
 				/>
 				<LabelInput>Número do cartão</LabelInput>
 				<input
-					type="text"
+					type="number"
 					name="number"
+					placeholder="Ex: 1234123412341234"
 					onChange={(e) => handleFormChange(e)}
 					value={cardDataInput.number}
 					required
@@ -81,6 +83,7 @@ export default function NewCard() {
 				<input
 					type="text"
 					name="name"
+					placeholder="Ex: João S."
 					onChange={(e) => handleFormChange(e)}
 					value={cardDataInput.name}
 					required
@@ -89,6 +92,8 @@ export default function NewCard() {
 				<input
 					type="text"
 					name="cvc"
+					placeholder="Ex: 123"
+					maxLength={3}
 					onChange={(e) => handleFormChange(e)}
 					value={cardDataInput.cvc}
 					required
@@ -97,6 +102,8 @@ export default function NewCard() {
 				<input
 					type="text"
 					name="date"
+					placeholder="Ex: 01/27"
+					maxLength={5}
 					onChange={(e) => handleFormChange(e)}
 					value={cardDataInput.date}
 					required
@@ -105,6 +112,7 @@ export default function NewCard() {
 				<input
 					type="password"
 					name="password"
+					placeholder="Ex: 1234"
 					onChange={(e) => handleFormChange(e)}
 					value={cardDataInput.password}
 					required
@@ -186,8 +194,9 @@ const Box = styled.div`
 	}
 
 	input[type="text"],
-	input[type="password"] {
-		font-size: 27px;
+	input[type="password"],
+	input[type="number"] {
+		font-size: 23px;
 		border-radius: 6px;
 		height: 40px;
 		border: 3px solid #005985;
@@ -197,7 +206,7 @@ const Box = styled.div`
 		margin-top: 10px;
 
 		::placeholder {
-			font-size: 27px;
+			font-size: 13px;
 			color: #9f9f9f;
 		}
 	}

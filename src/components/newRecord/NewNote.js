@@ -14,6 +14,8 @@ import urls from "../shared/urls";
 export default function NewNote() {
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [counterTitle, setCounterTitle] = useState(0);
+	const [counterText, setCounterText] = useState(0);
 	const navigate = useNavigate();
 	const [noteDataInput, setNoteDataInput] = useState({
 		title: "",
@@ -25,6 +27,8 @@ export default function NewNote() {
 		let data = { ...noteDataInput };
 		data[e.target.name] = e.target.value;
 		setNoteDataInput(data);
+		setCounterTitle(noteDataInput.title.length);
+		setCounterText(noteDataInput.note.length);
 	}
 
 	async function sendInformation() {
@@ -59,20 +63,24 @@ export default function NewNote() {
 				<Input
 					type="text"
 					name="title"
-					max="50"
+					placeholder="Ex: Reunião"
+					maxLength={50}
 					onChange={(e) => handleFormChange(e)}
 					value={noteDataInput.title}
 					required
 				/>
+				<Limit>{`${counterTitle}/50`}</Limit>
 				<LabelInput>Nota</LabelInput>
 				<BigInput
 					type="text"
 					name="note"
-					max="1000"
+					placeholder="Ex: Lembrar Joãozinho de *(dados sensíveis)* coisa..."
+					maxLength={1000}
 					onChange={(e) => handleFormChange(e)}
 					value={noteDataInput.note}
 					required
 				/>
+				<Limit>{`${counterText}/1000`}</Limit>
 			</Box>
 			<Bottom>
 				<BackButton onClick={backToNewRecords}>{"< Voltar"}</BackButton>
@@ -105,8 +113,13 @@ const Box = styled.div`
 	margin-bottom: 80px;
 `;
 
+const Limit = styled.p`
+	font-size: 13px;
+	margin-top: 5px;
+`;
+
 const Input = styled.input`
-	font-size: 27px;
+	font-size: 23px;
 	border-radius: 6px;
 	height: 40px;
 	border: 3px solid #005985;
@@ -116,23 +129,24 @@ const Input = styled.input`
 	margin-top: 10px;
 
 	::placeholder {
-		font-size: 27px;
+		font-size: 13px;
 		color: #9f9f9f;
 	}
 `;
 
 const BigInput = styled.textarea`
-	font-size: 27px;
+	font-size: 23px;
 	border-radius: 6px;
 	height: 200px;
 	border: 3px solid #005985;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 	width: 100%;
-	padding-left: 15px;
+	padding: 0 10px;
 	margin-top: 10px;
 
 	::placeholder {
-		font-size: 27px;
+		padding-top: 10px;
+		font-size: 13px;
 		color: #9f9f9f;
 		word-wrap: break-word;
 		word-break: break-all;

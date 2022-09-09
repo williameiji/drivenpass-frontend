@@ -60,6 +60,7 @@ export default function NewWifi() {
 				<input
 					type="text"
 					name="title"
+					placeholder="Ex: casa"
 					onChange={(e) => handleFormChange(e)}
 					value={wifiDataInput.title}
 					required
@@ -68,6 +69,7 @@ export default function NewWifi() {
 				<input
 					type="text"
 					name="name"
+					placeholder="Ex: MinhaRede"
 					onChange={(e) => handleFormChange(e)}
 					value={wifiDataInput.name}
 					required
@@ -76,6 +78,7 @@ export default function NewWifi() {
 				<input
 					type="password"
 					name="password"
+					placeholder="Ex: 10203040"
 					onChange={(e) => handleFormChange(e)}
 					value={wifiDataInput.password}
 					required
@@ -113,7 +116,7 @@ const Box = styled.div`
 
 	input[type="text"],
 	input[type="password"] {
-		font-size: 27px;
+		font-size: 23px;
 		border-radius: 6px;
 		height: 40px;
 		border: 3px solid #005985;
@@ -123,7 +126,7 @@ const Box = styled.div`
 		margin-top: 10px;
 
 		::placeholder {
-			font-size: 27px;
+			font-size: 13px;
 			color: #9f9f9f;
 		}
 	}

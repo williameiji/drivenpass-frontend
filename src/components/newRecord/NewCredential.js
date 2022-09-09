@@ -61,6 +61,7 @@ export default function NewCredential() {
 				<input
 					type="text"
 					name="title"
+					placeholder="Ex: Google"
 					onChange={(e) => handleFormChange(e)}
 					value={credentialDataInput.title}
 					required
@@ -69,6 +70,7 @@ export default function NewCredential() {
 				<input
 					type="text"
 					name="url"
+					placeholder="Ex: https://www.google.com.br"
 					onChange={(e) => handleFormChange(e)}
 					value={credentialDataInput.url}
 					required
@@ -77,6 +79,7 @@ export default function NewCredential() {
 				<input
 					type="text"
 					name="name"
+					placeholder="Ex: joãozinho@gmail.com"
 					onChange={(e) => handleFormChange(e)}
 					value={credentialDataInput.name}
 					required
@@ -85,6 +88,7 @@ export default function NewCredential() {
 				<input
 					type="password"
 					name="password"
+					placeholder="123456"
 					onChange={(e) => handleFormChange(e)}
 					value={credentialDataInput.password}
 					required
@@ -122,7 +126,7 @@ const Box = styled.div`
 
 	input[type="text"],
 	input[type="password"] {
-		font-size: 27px;
+		font-size: 23px;
 		border-radius: 6px;
 		height: 40px;
 		border: 3px solid #005985;
@@ -132,7 +136,7 @@ const Box = styled.div`
 		margin-top: 10px;
 
 		::placeholder {
-			font-size: 27px;
+			font-size: 13px;
 			color: #9f9f9f;
 		}
 	}

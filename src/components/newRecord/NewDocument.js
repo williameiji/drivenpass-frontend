@@ -84,6 +84,7 @@ export default function NewDocument() {
 				<input
 					type="text"
 					name="name"
+					placeholder="Ex: João S."
 					onChange={(e) => handleFormChange(e)}
 					value={documentDataInput.name}
 					required
@@ -92,6 +93,7 @@ export default function NewDocument() {
 				<input
 					type="text"
 					name="validate"
+					placeholder="Ex: 01/10/2024"
 					onChange={(e) => handleFormChange(e)}
 					value={documentDataInput.validate}
 					required
@@ -100,14 +102,16 @@ export default function NewDocument() {
 				<input
 					type="text"
 					name="emission"
+					placeholder="Ex: 01/10/2019"
 					onChange={(e) => handleFormChange(e)}
 					value={documentDataInput.emission}
 					required
 				/>
 				<LabelInput>Número de registro</LabelInput>
 				<input
-					type="text"
+					type="number"
 					name="number"
+					placeholder="Ex: 1234512345"
 					onChange={(e) => handleFormChange(e)}
 					value={documentDataInput.number}
 					required
@@ -116,6 +120,7 @@ export default function NewDocument() {
 				<input
 					type="text"
 					name="dispatched"
+					placeholder="Ex: ssp"
 					onChange={(e) => handleFormChange(e)}
 					value={documentDataInput.dispatched}
 					required
@@ -155,8 +160,9 @@ const Box = styled.div`
 	}
 
 	input[type="text"],
-	input[type="password"] {
-		font-size: 27px;
+	input[type="password"],
+	input[type="number"] {
+		font-size: 23px;
 		border-radius: 6px;
 		height: 40px;
 		border: 3px solid #005985;
@@ -166,7 +172,7 @@ const Box = styled.div`
 		margin-top: 10px;
 
 		::placeholder {
-			font-size: 27px;
+			font-size: 13px;
 			color: #9f9f9f;
 		}
 	}

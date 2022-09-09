@@ -5,15 +5,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import MainScreen from "../mainScreen/MainScreen";
-import SuccessModal from "./SuccessModal";
-import ErrorModal from "../shared/ErrorModal";
+import ModalGeneric from "../shared/ModalGeneric";
 import UserContext from "../context/UserContext";
 import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function NewWifi() {
-	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [modalMessage, setModalMessage] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const navigate = useNavigate();
 	const [wifiDataInput, setWifiDataInput] = useState({
 		title: "",
@@ -32,10 +31,15 @@ export default function NewWifi() {
 		axios
 			.post(urls.wifis, wifiDataInput, config(userInformation))
 			.then((response) => {
-				setIsSuccessModalOpen(true);
+				setModalMessage({
+					title: "Muito bem!",
+					text: "Wi-fi adicionado com sucesso!",
+					new: true,
+				});
+				setIsModalOpen(true);
 			})
 			.catch((err) => {
-				setIsErrorModalOpen(true);
+				setIsModalOpen(true);
 			});
 	}
 
@@ -45,14 +49,12 @@ export default function NewWifi() {
 
 	return (
 		<MainScreen>
-			<SuccessModal
-				isSuccessModalOpen={isSuccessModalOpen}
-				setIsSuccessModalOpen={setIsSuccessModalOpen}
+			<ModalGeneric
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+				modalMessage={modalMessage}
 			/>
-			<ErrorModal
-				isErrorModalOpen={isErrorModalOpen}
-				setIsErrorModalOpen={setIsErrorModalOpen}
-			/>
+
 			<TitleHeader>Wi-fi</TitleHeader>
 			<Box>
 				<Title>Cadastro</Title>

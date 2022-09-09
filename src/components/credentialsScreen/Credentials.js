@@ -9,9 +9,11 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import config from "../shared/config";
 import urls from "../shared/urls";
+import ModalGeneric from "../shared/ModalGeneric";
 
 export default function Credentials() {
 	const [credentials, setCredentials] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ export default function Credentials() {
 				setCredentials(response.data);
 			})
 			.catch((err) => {
-				alert(err.response.data);
+				setIsModalOpen(true);
 			});
 	}, []);
 
@@ -36,6 +38,8 @@ export default function Credentials() {
 
 	return (
 		<MainScreen>
+			<ModalGeneric isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+
 			<Title>Credenciais</Title>
 			{!credentials ? (
 				<BoxLoading>

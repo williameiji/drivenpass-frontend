@@ -5,15 +5,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import MainScreen from "../mainScreen/MainScreen";
-import SuccessModal from "./SuccessModal";
-import ErrorModal from "./ErrorModal";
+import ModalGeneric from "../shared/ModalGeneric";
 import UserContext from "../context/UserContext";
 import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function NewCard() {
-	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [modalMessage, setModalMessage] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const navigate = useNavigate();
 	const [cardDataInput, setCardDataInput] = useState({
 		title: "",
@@ -37,10 +36,15 @@ export default function NewCard() {
 		axios
 			.post(urls.cards, cardDataInput, config(userInformation))
 			.then((response) => {
-				setIsSuccessModalOpen(true);
+				setModalMessage({
+					title: "Muito bem!",
+					text: "Cartão adicionado com sucesso!",
+					new: true,
+				});
+				setIsModalOpen(true);
 			})
 			.catch((err) => {
-				setIsErrorModalOpen(true);
+				setIsModalOpen(true);
 			});
 	}
 
@@ -50,14 +54,12 @@ export default function NewCard() {
 
 	return (
 		<MainScreen>
-			<SuccessModal
-				isSuccessModalOpen={isSuccessModalOpen}
-				setIsSuccessModalOpen={setIsSuccessModalOpen}
+			<ModalGeneric
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+				modalMessage={modalMessage}
 			/>
-			<ErrorModal
-				isErrorModalOpen={isErrorModalOpen}
-				setIsErrorModalOpen={setIsErrorModalOpen}
-			/>
+
 			<TitleHeader>Cartões</TitleHeader>
 			<Box>
 				<Title>Cadastro</Title>

@@ -5,15 +5,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import MainScreen from "../mainScreen/MainScreen";
-import SuccessModal from "./SuccessModal";
-import ErrorModal from "./ErrorModal";
+import ModalGeneric from "../shared/ModalGeneric";
 import UserContext from "../context/UserContext";
 import config from "../shared/config";
 import urls from "../shared/urls";
 
 export default function NewCredential() {
-	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [modalMessage, setModalMessage] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const navigate = useNavigate();
 	const [credentialDataInput, setCredentialDataInput] = useState({
 		title: "",
@@ -33,10 +32,15 @@ export default function NewCredential() {
 		axios
 			.post(urls.credentials, credentialDataInput, config(userInformation))
 			.then((response) => {
-				setIsSuccessModalOpen(true);
+				setModalMessage({
+					title: "Muito bem!",
+					text: "Credencial adicionada com sucesso!",
+					new: true,
+				});
+				setIsModalOpen(true);
 			})
 			.catch((err) => {
-				setIsErrorModalOpen(true);
+				setIsModalOpen(true);
 			});
 	}
 
@@ -46,14 +50,12 @@ export default function NewCredential() {
 
 	return (
 		<MainScreen>
-			<SuccessModal
-				isSuccessModalOpen={isSuccessModalOpen}
-				setIsSuccessModalOpen={setIsSuccessModalOpen}
+			<ModalGeneric
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+				modalMessage={modalMessage}
 			/>
-			<ErrorModal
-				isErrorModalOpen={isErrorModalOpen}
-				setIsErrorModalOpen={setIsErrorModalOpen}
-			/>
+
 			<TitleHeader>Credenciais</TitleHeader>
 			<Box>
 				<Title>Cadastro</Title>

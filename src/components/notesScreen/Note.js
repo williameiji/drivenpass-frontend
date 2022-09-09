@@ -7,18 +7,17 @@ import { IoCloseCircle } from "react-icons/io5";
 import MainScreen from "../mainScreen/MainScreen";
 import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
-import DeleteModal from "../shared/DeleteModal";
-import ErrorModal from "../shared/ErrorModal";
 import config from "../shared/config";
 import urls from "../shared/urls";
+import ModalGeneric from "../shared/ModalGeneric";
 
 export default function Note() {
-	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 	const [note, setNote] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
+	const [modalMessage, setModalMessage] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	function backToNotes() {
 		navigate("/notes");
@@ -31,7 +30,7 @@ export default function Note() {
 				setNote(response.data);
 			})
 			.catch((err) => {
-				alert(err.response.data);
+				setIsModalOpen(true);
 			});
 	}, []);
 
@@ -39,22 +38,25 @@ export default function Note() {
 		axios
 			.delete(`${urls.notes}/${id}`, config(userInformation))
 			.then(() => {
-				setIsDeleteModalOpen(true);
+				setModalMessage({
+					title: "Muito bem!",
+					text: "Nota deletada com sucesso!",
+					delete: true,
+				});
+				setIsModalOpen(true);
 			})
 			.catch(() => {
-				setIsErrorModalOpen(true);
+				setIsModalOpen(true);
 			});
 	}
 	return (
 		<MainScreen>
-			<DeleteModal
-				isDeleteModalOpen={isDeleteModalOpen}
-				setIsDeleteModalOpen={setIsDeleteModalOpen}
+			<ModalGeneric
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+				modalMessage={modalMessage}
 			/>
-			<ErrorModal
-				isErrorModalOpen={isErrorModalOpen}
-				setIsErrorModalOpen={setIsErrorModalOpen}
-			/>
+
 			{!note ? (
 				<BoxLoading>
 					<LoadingData />

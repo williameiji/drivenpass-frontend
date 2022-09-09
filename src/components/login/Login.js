@@ -7,7 +7,7 @@ import AuthScreen from "../authScreen/AuthScreen";
 import AuthLoading from "../shared/AuthLoading";
 import UserContext from "../context/UserContext";
 import urls from "../shared/urls";
-import LoginModal from "./LoginModal";
+import ModalGeneric from "../shared/ModalGeneric";
 
 export default function Login() {
 	const [loginDataInput, setLoginDataInput] = useState({
@@ -18,6 +18,7 @@ export default function Login() {
 	const [blockButtom, setBlockButtom] = useState(false);
 	const { setUserInformation } = useContext(UserContext);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [modalMessage, setModalMessage] = useState(null);
 
 	function handleFormChange(e) {
 		let data = { ...loginDataInput };
@@ -36,6 +37,10 @@ export default function Login() {
 				navigate("/main");
 			})
 			.catch((err) => {
+				setModalMessage({
+					title: "Login inválido!",
+					text: "Confira o seu nome de usuário e senha para validar o seu acesso.",
+				});
 				setBlockButtom(false);
 				setIsModalOpen(true);
 			});
@@ -47,7 +52,11 @@ export default function Login() {
 
 	return (
 		<AuthScreen>
-			<LoginModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+			<ModalGeneric
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+				modalMessage={modalMessage}
+			/>
 			<Forms onSubmit={submitLogin}>
 				<LabelInput>Usuário (e-mail)</LabelInput>
 				<input

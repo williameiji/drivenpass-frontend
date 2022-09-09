@@ -9,10 +9,12 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import config from "../shared/config";
 import urls from "../shared/urls";
+import ModalGeneric from "../shared/ModalGeneric";
 
 export default function Wifis() {
 	const [wifis, setWifis] = useState(null);
 	const { userInformation } = useContext(UserContext);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -22,7 +24,7 @@ export default function Wifis() {
 				setWifis(response.data);
 			})
 			.catch((err) => {
-				alert(err.response.data);
+				setIsModalOpen(true);
 			});
 	}, []);
 
@@ -36,6 +38,8 @@ export default function Wifis() {
 
 	return (
 		<MainScreen>
+			<ModalGeneric isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+
 			<Title>Senhas de Wi-fi</Title>
 			{!wifis ? (
 				<BoxLoading>

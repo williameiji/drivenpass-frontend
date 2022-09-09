@@ -16,11 +16,14 @@ import UserContext from "../context/UserContext";
 import LoadingData from "../shared/LoadingData";
 import config from "../shared/config";
 import urls from "../shared/urls";
+import ModalGeneric from "../shared/ModalGeneric";
 
 export default function PasswordsScreen() {
 	const [counterTypes, setCounterTypes] = useState(null);
+	const [modalMessage, setModalMessage] = useState(null);
 	const { userInformation } = useContext(UserContext);
 	const navigate = useNavigate();
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
 		axios
@@ -28,7 +31,9 @@ export default function PasswordsScreen() {
 			.then((response) => {
 				setCounterTypes(response.data);
 			})
-			.catch((err) => {});
+			.catch((err) => {
+				setIsModalOpen(true);
+			});
 	}, []);
 
 	function goToCredencials() {
@@ -58,6 +63,12 @@ export default function PasswordsScreen() {
 	return (
 		<>
 			<MainScreen>
+				<ModalGeneric
+					isModalOpen={isModalOpen}
+					setIsModalOpen={setIsModalOpen}
+					modalMessage={modalMessage}
+				/>
+
 				<Title>Minhas senhas</Title>
 				{!counterTypes ? (
 					<BoxLoading>

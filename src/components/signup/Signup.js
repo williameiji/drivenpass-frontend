@@ -6,8 +6,8 @@ import axios from "axios";
 import AuthScreen from "../authScreen/AuthScreen";
 import AuthLoading from "../shared/AuthLoading";
 import urls from "../shared/urls";
-import SuccessModal from "./SuccessModal";
-import ErrorModal from "./ErrorModal";
+
+import ModalGeneric from "../shared/ModalGeneric";
 
 export default function Signup() {
 	const [signupDataInput, setSignupDataInput] = useState({
@@ -16,8 +16,8 @@ export default function Signup() {
 	});
 	const navigate = useNavigate();
 	const [blockButtom, setBlockButtom] = useState(false);
-	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-	const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+	const [modalMessage, setModalMessage] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	function handleFormChange(e) {
 		let data = { ...signupDataInput };
@@ -32,11 +32,28 @@ export default function Signup() {
 		await axios
 			.post(urls.signup, signupDataInput)
 			.then((response) => {
-				setIsSuccessModalOpen(true);
+				setModalMessage({
+					title: "Muito bem!",
+					text: "Cadastro feito com sucesso!",
+					signup: true,
+				});
+				setIsModalOpen(true);
 			})
 			.catch((err) => {
+				if (err.response.status === 409) {
+					setModalMessage({
+						title: "Ooooops!",
+						text: "Usuário já está cadastrado!",
+					});
+				} else {
+					setModalMessage({
+						title: "Ooooops!",
+						text: "Insira os dados corretamente.",
+					});
+				}
+
 				setBlockButtom(false);
-				setIsErrorModalOpen(true);
+				setIsModalOpen(true);
 			});
 	}
 
@@ -46,14 +63,12 @@ export default function Signup() {
 
 	return (
 		<AuthScreen>
-			<SuccessModal
-				isSuccessModalOpen={isSuccessModalOpen}
-				setIsSuccessModalOpen={setIsSuccessModalOpen}
+			<ModalGeneric
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+				modalMessage={modalMessage}
 			/>
-			<ErrorModal
-				isErrorModalOpen={isErrorModalOpen}
-				setIsErrorModalOpen={setIsErrorModalOpen}
-			/>
+
 			<Forms onSubmit={submitSignup}>
 				<LabelInput>Usuário (e-mail)</LabelInput>
 				<input

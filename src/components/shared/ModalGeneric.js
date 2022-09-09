@@ -2,29 +2,43 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
-export default function SuccessModal({
-	isSuccessModalOpen,
-	setIsSuccessModalOpen,
+export default function ModalGeneric({
+	isModalOpen,
+	setIsModalOpen,
+	modalMessage,
 }) {
 	const navigate = useNavigate();
 
 	function closeModal() {
-		setIsSuccessModalOpen(false);
-		navigate("/main");
+		if (modalMessage === null) {
+			setIsModalOpen(false);
+		} else if (modalMessage.signup) {
+			setIsModalOpen(false);
+			navigate("/");
+		} else if (modalMessage.new || modalMessage.delete) {
+			setIsModalOpen(false);
+			navigate("/main");
+		} else {
+			setIsModalOpen(false);
+		}
 	}
 
 	return (
 		<div>
 			<Modal
-				isOpen={isSuccessModalOpen}
+				isOpen={isModalOpen}
 				onRequestClose={closeModal}
 				ariaHideApp={false}
 				className="Modal"
 				overlayClassName="Overlay"
 			>
 				<Box>
-					<TextTitle>Muito bem! </TextTitle>
-					<Text>Registro efetuado com sucesso!</Text>
+					<TextTitle>
+						{modalMessage ? modalMessage.title : "Ooooops!"}
+					</TextTitle>
+					<Text>
+						{modalMessage ? modalMessage.text : "Algo deu errado! :("}
+					</Text>
 					<BoxButton>
 						<ButtonOk onClick={closeModal}>Ok</ButtonOk>
 					</BoxButton>
@@ -50,18 +64,18 @@ const TextTitle = styled.p`
 	margin-bottom: 20px;
 `;
 
-const BoxButton = styled.div`
-	display: flex;
-	align-items: center;
-	width: 100%;
-	margin: 40px 0 0 0;
-`;
-
 const Text = styled.p`
 	font-family: "Recursive";
 	font-size: 18px;
 	text-align: center;
 	color: #000000;
+`;
+
+const BoxButton = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 40px 0 0 0;
 `;
 
 const ButtonOk = styled.button`
